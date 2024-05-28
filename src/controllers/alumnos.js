@@ -6,17 +6,10 @@ const obtenerAlumnos = async (req,res) => {
 }
 
 const crearAlumno = async (req,res) => {
-  const response = await MDB_STUDENTS.create({
-    nombre: 'Agustin',
-    apellido: 'Alesso',
-    dni: 32621184,
-    direccion: 'F. Angeloni 2578',
-    telefono: '+5493498478398',
-    email: 'agustinalesso23@gmail.com',
-    fecha_nacimiento: new Date()
-  })
 
-  res.send(response);
+  const response = await MDB_STUDENTS.create(req.body);
+
+  res.status(200).send(response);
 }
 
 module.exports = {
