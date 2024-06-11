@@ -11,8 +11,13 @@ const crearAlumno = async (req,res) => {
 }
 
 const eliminarAlumno = async (req,res) => {
-  console.log(req.params.id);
-  res.send({status:'User Deleted'});
+  try {
+    const { id } = req.params;
+    const response = await MDB_STUDENTS.findByIdAndDelete(id);
+    res.send({ status:'OK', response });
+  } catch (error) {
+    res.status(500).send({ status:'Error', error })
+  }
 }
 
 module.exports = {
