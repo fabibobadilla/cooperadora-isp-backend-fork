@@ -1,8 +1,24 @@
 const MDB_STUDENTS = require('../database/schemas/alumnos');
 
 const obtenerAlumnos = async (req,res) => {
-  const response = await MDB_STUDENTS.find();
-  res.send(response);
+  const alumnos = await MDB_STUDENTS.find();
+  const respuesta = alumnos.map( (alumno) => {
+    const fechaNacimiento = new Date(alumno.fecha_nacimiento);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    if(mes < 0 || mes === 0 && hoy.getDate() - fechaNacimineto.getDate() < 0){
+      edad--;
+    }
+
+    return {
+      ...alumno._doc,
+      edad
+    }
+  });
+
+  res.send(respuesta);
 }
 
 const crearAlumno = async (req,res) => {

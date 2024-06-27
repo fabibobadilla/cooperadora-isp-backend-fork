@@ -6,6 +6,7 @@ const express = require('express');
 const dbConnect = require('./src/database/connection');
 const RUTAS_ALUMNOS = require('./src/routes/alumnos');
 const RUTAS_COBROS = require('./src/routes/cobros');
+const RUTAS_STATS = require('./src/routes/stats');
 
 // Instanciación de EXPRESS (servidor)
 const app = express();
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use('/alumnos', RUTAS_ALUMNOS);
 app.use('/cobros', RUTAS_COBROS);
+app.use('/stats', RUTAS_STATS);
 
 // Inicialización del servidor
 app.listen(process.env.PORT, () => {

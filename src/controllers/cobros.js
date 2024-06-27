@@ -11,7 +11,12 @@ const obtenerCobros = async (req,res) => {
 };
 
 const modificarCobro = async (req,res) => {};
-const eliminarCobro = async (req,res) => {};
+
+const eliminarCobro = async (req,res) => {
+  const {id} = req.params;
+  const response = await MDB_COBROS.findByIdAndDelete(id);
+  res.send(response);
+};
 
 module.exports = {
   crearCobro,
