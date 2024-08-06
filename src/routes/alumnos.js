@@ -1,6 +1,6 @@
 const express = require('express');
 const RUTAS_ALUMNOS = express.Router();
-const { obtenerAlumnos, crearAlumno, eliminarAlumno } = require('../controllers/alumnos');
+const { obtenerAlumnos, crearAlumno, eliminarAlumno, obtenerAlumnoIndividual } = require('../controllers/alumnos');
 
 RUTAS_ALUMNOS.route('/')
   .get(obtenerAlumnos)
@@ -8,6 +8,7 @@ RUTAS_ALUMNOS.route('/')
 
 RUTAS_ALUMNOS.route('/:id')
   .delete(eliminarAlumno)
+  .get(obtenerAlumnoIndividual)
 
 
 

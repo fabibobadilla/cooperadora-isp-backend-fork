@@ -1,5 +1,11 @@
 const MDB_STUDENTS = require('../database/schemas/alumnos');
 
+const obtenerAlumnoIndividual = async (req, res) => {
+  const { id } = req.params;
+  const alumno = await MDB_STUDENTS.findById(id);
+  res.send({ ...alumno._doc });
+}
+
 const obtenerAlumnos = async (req,res) => {
   const alumnos = await MDB_STUDENTS.find();
   const respuesta = alumnos.map( (alumno) => {
@@ -8,7 +14,7 @@ const obtenerAlumnos = async (req,res) => {
     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
     const mes = hoy.getMonth() - fechaNacimiento.getMonth();
 
-    if(mes < 0 || mes === 0 && hoy.getDate() - fechaNacimineto.getDate() < 0){
+    if(mes < 0 || mes === 0 && hoy.getDate() - fechaNacimiento.getDate() < 0){
       edad--;
     }
 
@@ -39,5 +45,6 @@ const eliminarAlumno = async (req,res) => {
 module.exports = {
   obtenerAlumnos,
   crearAlumno,
-  eliminarAlumno
+  eliminarAlumno,
+  obtenerAlumnoIndividual
 }
