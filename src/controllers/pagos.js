@@ -10,11 +10,10 @@ const getPagos = async (req,res) => {
 }
 
 const postPagos = async (req,res) => {
-
   try {
     const { body } = req;
     const response = await MDB_PAGOS.create(body);
-    res.send({response});
+    res.send({...response._doc});
   } catch (error) {
     res.status(500).send(error);
   }
