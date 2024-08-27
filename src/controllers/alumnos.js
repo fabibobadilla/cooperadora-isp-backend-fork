@@ -1,9 +1,22 @@
 const MDB_STUDENTS = require('../database/schemas/alumnos');
+const Pagos = require('../database/schemas/pagos');
 
 const obtenerAlumnoIndividual = async (req, res) => {
-  const { id } = req.params;
-  const alumno = await MDB_STUDENTS.findById(id);
-  res.send({ ...alumno._doc });
+  try {
+    const { id } = req.params;
+    const alumno = await MDB_STUDENTS.findById(id).exec();
+
+    const pagos = await Pagos.find( { alumno_id: id } ).populate('cobro_id');
+
+    const alumnoResponse = {
+      ...alumno._doc,
+      pagos: pagos.map( (pago) => pago._doc)
+    }
+
+    res.status(200).send({ ...alumnoResponse });
+  } catch (error) {
+    res.status(500).send({ status: 'Error', error });
+  }
 }
 
 const obtenerAlumnos = async (req,res) => {
@@ -24,7 +37,7 @@ const obtenerAlumnos = async (req,res) => {
     }
   });
 
-  res.send(respuesta);
+  res.status(200).send(respuesta);
 }
 
 const crearAlumno = async (req,res) => {

@@ -1,6 +1,6 @@
 const express = require('express');
-const RUTAS_ALUMNOS = express.Router();
 const { obtenerAlumnos, crearAlumno, eliminarAlumno, obtenerAlumnoIndividual } = require('../controllers/alumnos');
+const RUTAS_ALUMNOS = express.Router();
 
 RUTAS_ALUMNOS.route('/')
   .get(obtenerAlumnos)
