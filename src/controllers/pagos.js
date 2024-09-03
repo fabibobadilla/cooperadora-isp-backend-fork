@@ -20,7 +20,19 @@ const postPagos = async (req,res) => {
 
 }
 
+const updatePago = async (req, res) => {
+  try {
+    const { body } = req;
+    const { id } = body;
+    const response = await MDB_PAGOS.findByIdAndUpdate(id, { pagado: true });
+    res.send({...response._doc});
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getPagos,
-  postPagos
+  postPagos,
+  updatePago
 }
