@@ -31,8 +31,19 @@ const updatePago = async (req, res) => {
   }
 }
 
+const obtenerPagoIndividual = async (req,res) => {
+  try {
+    const { id } = req.params;
+    const response = await MDB_PAGOS.findById(id).populate('alumno_id').populate('cobro_id');
+    res.send({...response._doc});
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getPagos,
   postPagos,
-  updatePago
+  updatePago,
+  obtenerPagoIndividual
 }
